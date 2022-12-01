@@ -1,0 +1,119 @@
+syntax = "proto3";
+
+package account;
+
+option go_package = "./";
+
+// Service for handling client management
+service Client {
+  // Create client
+  rpc Create(ClientCreateRequest) returns (ClientResponse);
+  // Find clients
+  rpc Finds(ClientFindsRequest) returns (ClientsResponse);
+  // Find client by id
+  rpc FindByID(ClientFindByIDRequest) returns (ClientResponse);
+  // Find client by credential (secret & identifier)
+  rpc FindByCredential(ClientFindByCredentialRequest) returns (ClientResponse);
+  // Update client
+  rpc Update(ClientUpdateRequest) returns (ClientResponse);
+  // Delete client
+  rpc Delete(ClientDeleteRequest) returns (ClientResponse);
+}
+
+// Create client RPC payload
+message ClientCreateRequest {
+  string id = 1; // Client ID, when it's blank it will be automatically generated
+  string name = 2; // Client name
+  string website = 3; // Website
+  string redirect_uri = 4; // Redirect URI
+  string redirect_uri_staging = 6; // Redirect URI for staging environment
+  string redirect_uri_production = 5; // Redirect URI for production environment
+  string secret = 7; // Combined with identifier, as client credential, used for validating client request and defining authorizer strategy in auth service. It will be automatically generated when not specified
+  string identifier = 8; // Combined with secret, as client credential, used for validating client request and defining authorizer strategy in auth service. It will be automatically generated when not specified
+  string authorizer_id = 9; // AuthorizerID is a strategy ID based on predefined strategy in auth service
+  string system_id = 10; // Will be validated with existing systems slug
+  repeated string sign_out_web_hook_urls = 11; // Webhook URL that will be called after sign out
+}
+
+// Find clients RPC payload
+message ClientFindsRequest {
+  string id = 2; // When specified, the request will fetch data by Client ID
+  string secret = 3; // Should be combined with identifier. When specified, the request will fetch data by Client credential (secret & identifier)
+  string identifier = 4; // Should be combined with secret. When specified, the request will fetch data by Client credential (secret & identifier)
+  string authorizer_id = 5; // When specified, the request will fetch data by authorizer ID
+}
+
+// Find client by ID RPC payload
+message ClientFindByIDRequest {
+  string id = 1; // Client ID  
+}
+
+// Find client by credential RPC payload
+message ClientFindByCredentialRequest {  
+  string secret = 1; // Client secret
+  string identifier = 2; // Client identifier
+}
+
+// Update client RPC payload
+message ClientUpdateRequest {
+  string id = 1; // Client ID
+  string name = 2; // Client name
+  string website = 3; // Website
+  string redirect_uri = 4; // Redirect URI
+  string redirect_uri_staging = 6; // Redirect URI for staging environment
+  string redirect_uri_production = 5; // Redirect URI for production environment
+  string secret = 7; // Combined with identifier, as client credential, used for validating client request and defining authorizer strategy in auth service. It will be automatically generated when not specified
+  string identifier = 8; // Combined with secret, as client credential, used for validating client request and defining authorizer strategy in auth service. It will be automatically generated when not specified
+  string authorizer_id = 9; // AuthorizerID is a strategy ID based on predefined strategy in auth service
+  string system_id = 10; // Will be validated with existing systems slug
+  repeated string sign_out_web_hook_urls = 11; // Webhook URL that will be called after sign out
+}
+
+// Client credential structure
+message ClientCredential {
+  string identifier = 1; // Client identifier
+  string secret = 2; // Client secret
+}
+
+// Delete client RPC payload
+message ClientDeleteRequest {
+  string id = 1; // Client ID
+}
+
+// Single client response result
+message ClientResponse{
+  string id = 1; // Client ID
+  string name = 2; // Client name
+  string website = 3; // Website
+  string redirect_uri = 4; // Redirect URI
+  string redirect_uri_staging = 6; // Redirect URI for staging environment
+  string redirect_uri_production = 5; // Redirect URI for production environment
+  string secret = 7; // Combined with identifier, as client credential, used for validating client request and defining authorizer strategy in auth service. It will be automatically generated when not specified
+  string identifier = 8; // Combined with secret, as client credential, used for validating client request and defining authorizer strategy in auth service. It will be automatically generated when not specified
+  string authorizer_id = 9; // AuthorizerID is a strategy ID based on predefined strategy in auth service
+  string system_id = 10; // System slug
+  repeated string sign_out_web_hook_urls = 11; // Webhook URL that will be called after sign out
+}
+
+// Client item response result
+message ClientItem {  
+  string id = 1; // Client ID
+  string name = 2; // Client name
+  string website = 3; // Website
+  string redirect_uri = 4; // Redirect URI
+  string redirect_uri_staging = 6; // Redirect URI for staging environment
+  string redirect_uri_production = 5; // Redirect URI for production environment
+  string secret = 7; // Combined with identifier, as client credential, used for validating client request and defining authorizer strategy in auth service. It will be automatically generated when not specified
+  string identifier = 8; // Combined with secret, as client credential, used for validating client request and defining authorizer strategy in auth service. It will be automatically generated when not specified
+  string authorizer_id = 9; // AuthorizerID is a strategy ID based on predefined strategy in auth service
+  string system_id = 10; // System slug
+  repeated string sign_out_web_hook_urls = 11; // Webhook URL that will be called after sign out
+}
+
+// Client response result
+message ClientsResponse{
+  repeated ClientItem results = 1; // Result formed as array of Client
+  int32 total = 2; // Total record of result
+}
+
+
