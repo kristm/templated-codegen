@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package account;
+
+option go_package = "api/rpc";
+
+message BaseFindsRequest {
+    uint32  take = 1; // Takes a positive integer that specifies the number of records to be fetched in request
+    uint32  skip = 2; // Takes a positive integer that specifies the number of records to be skipped in request
+    repeated string sort = 3; // Specifies the field(s) to sort, field name with hyphen prefixed (`-`) will be sort as descending otherwise handled as ascending
+}
+

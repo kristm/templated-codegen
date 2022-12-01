@@ -2,7 +2,9 @@ syntax = "proto3";
 
 package account;
 
-option go_package = "./";
+import "base.proto";
+
+option go_package = "api/rpc";
 
 // Service for handling client management
 service Client {
@@ -37,6 +39,7 @@ message ClientCreateRequest {
 
 // Find clients RPC payload
 message ClientFindsRequest {
+  BaseFindsRequest base = 1;  // Basic read parameter
   string id = 2; // When specified, the request will fetch data by Client ID
   string secret = 3; // Should be combined with identifier. When specified, the request will fetch data by Client credential (secret & identifier)
   string identifier = 4; // Should be combined with secret. When specified, the request will fetch data by Client credential (secret & identifier)
