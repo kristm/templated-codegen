@@ -4,10 +4,9 @@
 // 	protoc        v3.15.8
 // source: client.proto
 
-package __
+package rpc
 
 import (
-	rpc "api/rpc"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -155,11 +154,11 @@ type ClientFindsRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Base         *rpc.BaseFindsRequest `protobuf:"bytes,1,opt,name=base,proto3" json:"base,omitempty"`                                     // Basic read parameter
-	Id           string                `protobuf:"bytes,2,opt,name=id,proto3" json:"id,omitempty"`                                         // When specified, the request will fetch data by Client ID
-	Secret       string                `protobuf:"bytes,3,opt,name=secret,proto3" json:"secret,omitempty"`                                 // Should be combined with identifier. When specified, the request will fetch data by Client credential (secret & identifier)
-	Identifier   string                `protobuf:"bytes,4,opt,name=identifier,proto3" json:"identifier,omitempty"`                         // Should be combined with secret. When specified, the request will fetch data by Client credential (secret & identifier)
-	AuthorizerId string                `protobuf:"bytes,5,opt,name=authorizer_id,json=authorizerId,proto3" json:"authorizer_id,omitempty"` // When specified, the request will fetch data by authorizer ID
+	Base         *BaseFindsRequest `protobuf:"bytes,1,opt,name=base,proto3" json:"base,omitempty"`                                     // Basic read parameter
+	Id           string            `protobuf:"bytes,2,opt,name=id,proto3" json:"id,omitempty"`                                         // When specified, the request will fetch data by Client ID
+	Secret       string            `protobuf:"bytes,3,opt,name=secret,proto3" json:"secret,omitempty"`                                 // Should be combined with identifier. When specified, the request will fetch data by Client credential (secret & identifier)
+	Identifier   string            `protobuf:"bytes,4,opt,name=identifier,proto3" json:"identifier,omitempty"`                         // Should be combined with secret. When specified, the request will fetch data by Client credential (secret & identifier)
+	AuthorizerId string            `protobuf:"bytes,5,opt,name=authorizer_id,json=authorizerId,proto3" json:"authorizer_id,omitempty"` // When specified, the request will fetch data by authorizer ID
 }
 
 func (x *ClientFindsRequest) Reset() {
@@ -194,7 +193,7 @@ func (*ClientFindsRequest) Descriptor() ([]byte, []int) {
 	return file_client_proto_rawDescGZIP(), []int{1}
 }
 
-func (x *ClientFindsRequest) GetBase() *rpc.BaseFindsRequest {
+func (x *ClientFindsRequest) GetBase() *BaseFindsRequest {
 	if x != nil {
 		return x.Base
 	}
@@ -1040,7 +1039,8 @@ var file_client_proto_rawDesc = []byte{
 	0x6f, 0x75, 0x6e, 0x74, 0x2e, 0x43, 0x6c, 0x69, 0x65, 0x6e, 0x74, 0x44, 0x65, 0x6c, 0x65, 0x74,
 	0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x17, 0x2e, 0x61, 0x63, 0x63, 0x6f, 0x75,
 	0x6e, 0x74, 0x2e, 0x43, 0x6c, 0x69, 0x65, 0x6e, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73,
-	0x65, 0x42, 0x04, 0x5a, 0x02, 0x2e, 0x2f, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x65, 0x42, 0x09, 0x5a, 0x07, 0x61, 0x70, 0x69, 0x2f, 0x72, 0x70, 0x63, 0x62, 0x06, 0x70, 0x72,
+	0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -1067,7 +1067,7 @@ var file_client_proto_goTypes = []interface{}{
 	(*ClientResponse)(nil),                // 7: account.ClientResponse
 	(*ClientItem)(nil),                    // 8: account.ClientItem
 	(*ClientsResponse)(nil),               // 9: account.ClientsResponse
-	(*rpc.BaseFindsRequest)(nil),          // 10: account.BaseFindsRequest
+	(*BaseFindsRequest)(nil),              // 10: account.BaseFindsRequest
 }
 var file_client_proto_depIdxs = []int32{
 	10, // 0: account.ClientFindsRequest.base:type_name -> account.BaseFindsRequest
@@ -1096,6 +1096,7 @@ func file_client_proto_init() {
 	if File_client_proto != nil {
 		return
 	}
+	file_base_proto_init()
 	if !protoimpl.UnsafeEnabled {
 		file_client_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*ClientCreateRequest); i {
