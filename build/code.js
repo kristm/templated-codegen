@@ -3,21 +3,27 @@ import API from 'utils/API';
 
 
 export default class RPC {
+  
   static create(payload, successHandler, errorHandler) {
     API.post("/rpc/client/Create", payload, successHandler, errorHandler)
   }
+  
   static finds(payload, successHandler, errorHandler) {
     API.post("/rpc/client/Finds", payload, successHandler, errorHandler)
   }
-  static findbyid(payload, successHandler, errorHandler) {
+  
+  static findByID(payload, successHandler, errorHandler) {
     API.post("/rpc/client/FindByID", payload, successHandler, errorHandler)
   }
-  static findbycredential(payload, successHandler, errorHandler) {
+  
+  static findByCredential(payload, successHandler, errorHandler) {
     API.post("/rpc/client/FindByCredential", payload, successHandler, errorHandler)
   }
+  
   static update(payload, successHandler, errorHandler) {
     API.post("/rpc/client/Update", payload, successHandler, errorHandler)
   }
+  
   static delete(payload, successHandler, errorHandler) {
     API.post("/rpc/client/Delete", payload, successHandler, errorHandler)
   }

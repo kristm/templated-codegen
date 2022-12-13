@@ -25,12 +25,12 @@ service Client {
 // Create client RPC payload
 message ClientCreateRequest {
   string id = 1; // Client ID, when it's blank it will be automatically generated
-  optional string name = 2; // Client name
-  optional string website = 3; // Website
-  optional string redirect_uri = 4; // Redirect URI
-  optional string redirect_uri_staging = 6; // Redirect URI for staging environment
-  optional string redirect_uri_production = 5; // Redirect URI for production environment
-  optional string secret = 7; // Combined with identifier, as client credential, used for validating client request and defining authorizer strategy in auth service. It will be automatically generated when not specified
+  string name = 2; // Client name
+  string website = 3; // Website
+  string redirect_uri = 4; // Redirect URI
+  string redirect_uri_staging = 6; // Redirect URI for staging environment
+  string redirect_uri_production = 5; // Redirect URI for production environment
+  string secret = 7; // Combined with identifier, as client credential, used for validating client request and defining authorizer strategy in auth service. It will be automatically generated when not specified
   string identifier = 8; // Combined with secret, as client credential, used for validating client request and defining authorizer strategy in auth service. It will be automatically generated when not specified
   string authorizer_id = 9; // AuthorizerID is a strategy ID based on predefined strategy in auth service
   string system_id = 10; // Will be validated with existing systems slug

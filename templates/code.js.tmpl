@@ -4,7 +4,10 @@ import API from 'utils/API';
 
 export default class RPC {
 {{- range .Service.Method}}
-  static {{lower .Name}}(payload, successHandler, errorHandler) {
+  {{$camelMethod := camelcase .Name}}
+  {{$camel1stChar := substr 0 1 $camelMethod | lower -}}
+  {{$camelRest := substr 1 -1 $camelMethod -}}
+  static {{cat $camel1stChar $camelRest|nospace}}(payload, successHandler, errorHandler) {
     API.post("/rpc/{{lower $service}}/{{.Name}}", payload, successHandler, errorHandler)
   }
 {{- end }}
